@@ -25,7 +25,6 @@ CREATE TABLE employee (
     role_id INT,
     manager_id INT,
     FOREIGN KEY (role_id)
-    -- the role is not working, how to make role works?
     REFERENCES role(id)
     ON DELETE CASCADE,
     FOREIGN KEY (manager_id)
