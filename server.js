@@ -18,6 +18,16 @@ const db = mysql.createConnection(
     console.log(`Connected to the employees_db database.`)
 );
 
+inquirer.prompt([
+    {
+        type: 'list',
+        message: 'What would you like to do?',
+        name: 'select',
+        choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit']
+    }
+])
+.then((res) =>)
+
 // insert a new department name into the department table
 // maybe ${add}-${department} here
 app.post(`/api/department`, ({ body }, res) => {
@@ -39,6 +49,6 @@ app.post(`/api/department`, ({ body }, res) => {
 
 // app.get('/department', ())
 
-// app.post('/api/add-role', ())
+// app.post('/api/role', ())
 
 

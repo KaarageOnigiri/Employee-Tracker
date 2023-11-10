@@ -32,3 +32,5 @@ CREATE TABLE employee (
     REFERENCES employee(id)
     ON DELETE SET NULL
 )
+
+INSERT INTO 
