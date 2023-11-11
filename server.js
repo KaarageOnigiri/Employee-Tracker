@@ -26,7 +26,7 @@ inquirer.prompt([
         choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit']
     }
 ])
-.then((res) =>)
+// .then((res) =>)
 
 // insert a new department name into the department table
 // maybe ${add}-${department} here
