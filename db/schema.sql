@@ -15,8 +15,10 @@ CREATE TABLE role (
     department_id INT,
     FOREIGN KEY (department_id)
     REFERENCES department(id)
-    ON DELETE CASCADE
+    ON DELETE SET NULL
 );
+-- on delete cascade?
+
 
 CREATE TABLE employee (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -26,9 +28,10 @@ CREATE TABLE employee (
     manager_id INT,
     FOREIGN KEY (role_id)
     REFERENCES role(id)
-    ON DELETE CASCADE,
-    FOREIGN KEY (manager_id)
-    REFERENCES employee(id)
     ON DELETE SET NULL
+    -- kept getting error with this one
+    -- FOREIGN KEY (manager_id)
+    -- REFERENCES employee(id)
+    -- ON DELETE SET NUll
 );
 
