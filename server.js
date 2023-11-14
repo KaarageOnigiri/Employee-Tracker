@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         host: 'localhost',
         user: 'root',
-        password: 'Yangwei_95',
+        password: 'password',
         database: 'employees_db'
     },
     console.log(`Connected to the employees_db database.`)
@@ -69,7 +69,11 @@ function init() {
 }
 
 function viewAllEmployees() {
-    db.query(`SELECT * FROM employee`, (err, res) => {
+    const sql = `SELECT employee.id AS Employee_ID, employee.first_name AS First_Name, employee.last_name AS Last_Name, department.department_name AS Department, employee.role_id AS Role_ID, role.title AS Job_Title, role.salary AS Salary
+        FROM employee
+        JOIN role ON employee.role_id = role.id
+        JOIN department ON role.department_id = department.id;`
+    db.query(sql, (err, res) => {
         if(err) throw err;
         console.table(res);
         init();
@@ -115,38 +119,95 @@ function updateEmployeeRole() {
     inquirer.prompt([
         {
             type: 'input',
-            message: "Please type the first name of the employee you would like to update:",
-            name: 'employeeName'
+            message: "Please type the ID of the employee you would like to update:",
+            name: 'employeeID'
         },
         {
             type: 'input',
-            message: "Please type in the new role ID of the employee:",
+            message: "Please type in the new role (Role ID) of the employee:",
             name: 'newRoleID'
         }
     ])
     .then((res) => {
-        const sql = `UPDATE employee SET role_id=? WHERE first_name=?`;
-        const params = [];
-        db.query()
+        const sql = `UPDATE employee SET role_id=? WHERE id=?`;
+        const params = [res.newRoleID, res.employeeID];
+        db.query(sql, params, (err, res) => {
+            if (err) throw err;
+            console.table(res);
+            init();
+        })
     })
 }
 
+function viewAllRoles() {
+    const sql = `SELECT * FROM role;`
+    db.query(sql, (err, res) => {
+        if(err) throw err;
+        console.table(res);
+        init();
+    })
+}
 
+function addRole() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: "Please type the title of the new role:",
+            name: 'newRole'
+        },
+        {
+            type: 'input',
+            message: "Please type the salary of the new role:",
+            name: 'roleSalary'
+        },
+        {
+            type: 'input',
+            message: "Please type the department ID of the new role:",
+            name: 'departmentID'
+        }
+    ])
+    .then((res) => {
+        const sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
+        const params = [res.newRole, res.roleSalary, res.departmentID];
 
+        db.query(sql, params, (err, result) => {
+            if (err) throw err;
+            console.table(res);
+            init();
+        })
+    })
+}
 
-// app.post(`/api/department`, ({ body }, res) => {
-//     const sql = `INSERT INTO department (department_name)
-//         VALUES (?)`;
-//     const params = [body.department_name];
+function viewAllDepartments() {
+    const sql = `SELECT * FROM department;`
+    db.query(sql, (err, res) => {
+        if(err) throw err;
+        console.table(res);
+        init();
+    })
+}
 
-//     db.query(sql, params, (err, res) => {
-//         if (err) {
-//             res.status(400).json({ error: err.message });
-//             return;
-//         }
-//         res.json({
-//             message: 'success',
-//             data: body
-//         })
-//     })
-// })
+function addDepartment() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: "Please type the new department's name:",
+            name: 'newDepartment'
+        }
+    ])
+    .then((res) => {
+        const sql = `INSERT INTO department (department_name) VALUES (?)`;
+        const params = [res.newDepartment];
+
+        db.query(sql, params, (err, result) => {
+            if (err) throw err;
+            console.table(res);
+            init();
+        })
+    })
+}
+
+// end the mysql connection
+function quit() {
+    db.end();
+}
