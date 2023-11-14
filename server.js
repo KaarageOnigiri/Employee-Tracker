@@ -125,6 +125,8 @@ function updateEmployeeRole() {
         }
     ])
     .then((res) => {
+        const sql = `UPDATE employee SET role_id=? WHERE first_name=?`;
+        const params = [];
         db.query()
     })
 }
