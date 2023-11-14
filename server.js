@@ -1,3 +1,4 @@
+// connecting to all the tools
 const express = require('express');
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
@@ -13,14 +14,14 @@ const db = mysql.createConnection(
     {
         host: 'localhost',
         user: 'root',
-        password: 'password',
+        password: 'Yangwei_95',
         database: 'employees_db'
     },
     console.log(`Connected to the employees_db database.`)
 );
 
 init();
-
+// start up this function to initiate the prompt
 function init() {
     inquirer.prompt([
         {
@@ -192,7 +193,20 @@ function addDepartment() {
         {
             type: 'input',
             message: "Please type the new department's name:",
-            name: 'newDepartment'
+            name: 'newDepartment',
+            validate: function (input) {
+                // Declare function as asynchronous, and save the done callback
+                const done = this.async();
+
+                if (input.length < 1) {
+                // Pass the return value in the done callback
+                done('Cannot have less than one character');
+                } else {
+                // Pass the return value in the done callback
+                done(null, true);
+                }
+               
+              }
         }
     ])
     .then((res) => {
@@ -209,5 +223,6 @@ function addDepartment() {
 
 // end the mysql connection
 function quit() {
+    console.info('Ending Connection...');
     db.end();
 }
