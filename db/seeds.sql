@@ -11,7 +11,7 @@ VALUES ("Tire Installer", 60000, 1),
        ("Baker", 50000, 2),
        ("Cake Decorater", 55000, 2),
        ("Cashier", 50000, 5),
-       ("LIcensed Optician", 100000, 3),
+       ("Licensed Optician", 100000, 3),
        ("Meat Cutter", 65000, 4),
        ("Warehouse Manager", 130000, 5);
 
