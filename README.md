@@ -11,4 +11,4 @@ To initiate the database, user will have to do a 'npm i' and initiate the progra
 <img src="./assets/employee_tracker.PNG" alt="Screenshot of the employee_tracker file"/>
 
 ## Link to the walkthrough video
-Screencastify link: https://watch.screencastify.com/v/Bu10U74PtDCrCdWajkyK
+Screencastify link: https://watch.screencastify.com/v/7toEUx6WlfatlXB5Bkwk
